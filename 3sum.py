@@ -1,17 +1,24 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         
-        temp = sorted(nums)
+        triplets = []
+        nums.sort()
         
-        j = 1
-        k = 2
-        x = temp [0]
-        
-        z = nums [k]
-        
-        while len(temp) != 0:
-            for j in range(1,len(temp)):
-                y = temp [j]
+        for i, x in enumerate(nums):
+            if i > 0 and x == nums[i - 1]:
+                continue
                 
-                for k in range(2,len(temp)):
-                    z = temp[k]
+            leftPtr, rightPtr = i + 1 , len(nums) - 1 #left and right pointers on input array
+            while leftPtr < rightPtr:
+                triplet = x + nums[leftPtr] + nums[rightPtr]
+                if triplet > 0:
+                    rightPtr -= 1
+                elif triplet < 0:
+                    leftPtr += 1
+                else:
+                    triplets.append([x, nums[leftPtr], nums[rightPtr]])
+                    leftPtr += 1
+                    while nums[leftPtr] == nums[leftPtr -1] and leftPtr < rightPtr:
+                        leftPtr += 1
+        
+        return triplet
